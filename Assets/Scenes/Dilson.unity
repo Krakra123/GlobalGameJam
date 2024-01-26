@@ -277,7 +277,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1095865722}
         m_TargetAssemblyTypeName: ScrollingText, Assembly-CSharp
-        m_MethodName: ActiveText
+        m_MethodName: Show
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -334,12 +334,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1095865716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580ce0806f5a866418ac6d755602d0a7, type: 3}
+  m_Script: {fileID: 11500000, guid: cec60dcab738dd94c84ad29f0e9d6650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo:
-  - AHHHHHHHH
-  textSpeed: 0.01
+  itemInfo: AHHHHHHH
   itemInfoText: {fileID: 1271740294}
 --- !u!1 &1271740292
 GameObject:
