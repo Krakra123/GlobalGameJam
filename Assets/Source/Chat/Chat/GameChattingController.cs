@@ -31,7 +31,7 @@ public class GameChattingController : MonoBehaviour
     private void Update()
     {
         Debug.Log(_currentState);
-        if (_currentState == ChatState.Chatting && Input.GetKeyDown(KeyCode.E))
+        if (_currentState == ChatState.Chatting && Input.GetKeyDown(KeyCode.E)) //TODO
         {
             if (_currentStory.canContinue)
             {
