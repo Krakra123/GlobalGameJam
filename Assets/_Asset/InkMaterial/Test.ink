@@ -1,6 +1,7 @@
 //global VAR
 VAR max_metric = 100
 VAR current_metric = 0
+EXTERNAL playAnimation(animationName)
 
 -> introduction_knot
 
@@ -22,6 +23,7 @@ Cũng giống như em thôi, anh đang đi tìm kiếm niềm vui :D
 * =))
 -> next_sub_knot_1
 * Điêu thế, anh đẹp trai như vậy, phải có ối cô theo
+~ playAnimation("animation")
 -> next_sub_knot_1
 = next_sub_knot_1
 Anh nói thật mà anh làm gì có người yêu, anh còn đang sợ ế đây này
