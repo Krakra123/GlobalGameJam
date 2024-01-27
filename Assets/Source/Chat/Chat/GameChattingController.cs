@@ -30,8 +30,15 @@ public class GameChattingController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_currentState);
-        if (_currentState == ChatState.Chatting && Input.GetKeyDown(KeyCode.E)) //TODO
+        if (_currentState == ChatState.Chatting && Input.GetMouseButtonDown(0))
+        {
+            ProgressStory();
+        }
+    }
+
+    public void ProgressStory()
+    {
+        if (_currentState == ChatState.Chatting)
         {
             if (_currentStory.canContinue)
             {
@@ -56,7 +63,6 @@ public class GameChattingController : MonoBehaviour
     public void SelectResponse(int index)
     {
         _messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
-
         _currentStory.ChooseChoiceIndex(index);
 
         _responseManager.HideResponses();
