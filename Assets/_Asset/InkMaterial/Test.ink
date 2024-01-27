@@ -1,6 +1,4 @@
-//global VAR
-VAR max_metric = 100
-VAR current_metric = 0
+//call method
 
 
 -> knot_1 //go k_1
