@@ -19,7 +19,7 @@ Cũng giống như em thôi, anh đang đi tìm kiếm niềm vui :D
 Ơ anh nói thật mà
 -> next_sub_knot_1
 * Anh và em có vẻ hợp nhau đấy
-Hợp hay không thử cái biết liền
+Quẹt phải em là anh đã biết rồi
 -> next_sub_knot_1
 = next_sub_knot_1
 Điêu thế em chả tin. Trông anh thế phải có đầy người yêu.
@@ -178,12 +178,12 @@ HAHAHAHAHHAAHHAHAHAHAHAHA
 -> knot_3_subknot_7
 
 = knot_3_subknot_7
-MÀY BỊ ĐIÊN À !!! TAO BÁO CÔNG AN ĐẤY !! THẰNG CHÓ NÀY
+????????? BỊ ĐIÊN À !!! TAO BÁO CÔNG AN ĐẤY !!
 HAHAHAHHAHAHAHAHAHAHAHAHAHHAHAHAHAHA...KHÔNG KỊP ĐÂU...
 //*INSERT ảnh chụp qua cửa sổ
 Cái gì đây ?? Mày muốn gì ??
 ANH CHỈ MUỐN 
 SAO MÀY MUỐN GÌ ???
-ANH CHỈ MUỐN LÀM EM CƯỜI !!!
+ANH CHỈ MUỐN.....LÀM EM CƯỜI !!!
 Blocked
 -> END
