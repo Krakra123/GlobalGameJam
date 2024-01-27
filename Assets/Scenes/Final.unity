@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92644f79bbc5f140a6b7364634a5c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateContainer: {fileID: 11400000, guid: a5bc72af3ad3ed940a6f46a406db11d8, type: 2}
+  _chatContainer: {fileID: 11400000, guid: a5bc72af3ad3ed940a6f46a406db11d8, type: 2}
   _messageManager: {fileID: 568990197}
   _responseManager: {fileID: 711506592}
 --- !u!4 &106991974
@@ -845,11 +845,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be529221cce436b48abde359da5b8c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _otherMessagePrototype: {fileID: 7993616838937868159, guid: 09ac66bc3ad6da04e86da25c7802c19d, type: 3}
   _ownMessagePrototype: {fileID: 6678224082785653814, guid: 3fdf3379161682548aead95230cc1415, type: 3}
+  _otherMessagePrototype: {fileID: 7993616838937868159, guid: 09ac66bc3ad6da04e86da25c7802c19d, type: 3}
   _messagePool: {fileID: 48622928}
-  _maxMessages: 30
-  _messageSpacing: 10
+  _maxMessages: 50
+  _messageSpacingOffset: 5
+  _messageMaxWidth: 300
+  _messageLineSpacing: 22
+  _messageBoundOffset: 10
+  _messageTextHorizontalOffset: 10
 --- !u!114 &568990198
 MonoBehaviour:
   m_ObjectHideFlags: 0
