@@ -19,9 +19,7 @@ public class MessageManager : MonoBehaviour
     [SerializeField]
     private float _messageSpacing;
 
-    [SerializeField]
     private Vector2 _chatOrigin;
-    [SerializeField]
     private float _chatWidth;
 
     private LinkedList<Message> _messageList = new();
@@ -29,6 +27,9 @@ public class MessageManager : MonoBehaviour
     private void Start()
     {
         _messagePool.SetPrototype(_otherMessagePrototype); //!
+
+        _chatOrigin = transform.position;
+        _chatWidth = GetComponent<RectTransform>().rect.width;
     }
 
     public void LoadMessage(string text, bool isOwnMessage)
@@ -50,25 +51,25 @@ public class MessageManager : MonoBehaviour
 
     private Message CreateOtherMassageRaw(string text)
     {
-        Vector2 poolPosition = _messagePool.transform.position;
-        poolPosition.y += _messageSpacing;
-        _messagePool.transform.position = poolPosition;
-
         _messagePool.SetPrototype(_otherMessagePrototype);
         Message messageInstance = _messagePool.Get();
         messageInstance.SetUp(text, _chatOrigin);
+
+        Vector2 poolPosition = _messagePool.transform.position;
+        poolPosition.y += messageInstance.SpacingHeight + _messageSpacing;
+        _messagePool.transform.position = poolPosition;
 
         return messageInstance;
     }
     private Message CreateOwnMassageRaw(string text)
     {
-        Vector2 poolPosition = _messagePool.transform.position;
-        poolPosition.y += _messageSpacing;
-        _messagePool.transform.position = poolPosition;
-
         _messagePool.SetPrototype(_ownMessagePrototype);
         Message messageInstance = _messagePool.Get();
         messageInstance.SetUp(text, _chatOrigin + Vector2.right * _chatWidth);
+
+        Vector2 poolPosition = _messagePool.transform.position;
+        poolPosition.y += messageInstance.SpacingHeight + _messageSpacing;
+        _messagePool.transform.position = poolPosition;
 
         return messageInstance;
     }
