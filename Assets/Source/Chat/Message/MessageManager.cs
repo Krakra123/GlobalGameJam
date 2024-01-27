@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayMessageManager : MonoBehaviour
+public class MessageManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _otherMessagePrototype;
@@ -25,18 +25,6 @@ public class DisplayMessageManager : MonoBehaviour
     private float _chatWidth;
 
     private LinkedList<Message> _messageList = new();
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            LoadMessage(Time.time.ToString(), false);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            LoadMessage(Time.time.ToString(), true);
-        }
-    }
 
     private void Start()
     {

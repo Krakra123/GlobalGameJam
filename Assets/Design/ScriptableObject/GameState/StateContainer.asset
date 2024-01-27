@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6c302588cdeaa4298d58b6859bb1b9, type: 3}
   m_Name: StateContainer
   m_EditorClassIdentifier: 
-  Data: []
+  Data:
+  - {fileID: 4900000, guid: 0c8b91880537f8b419895149cd021173, type: 3}
