@@ -1,6 +1,7 @@
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameChattingController : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class GameChattingController : MonoBehaviour
 
     private void Start()
     {
-        ChangeState("Test");
+        
     }
 
     private void Update()
@@ -34,6 +35,8 @@ public class GameChattingController : MonoBehaviour
         {
             ProgressStory();
         }
+
+        if (Input.GetKeyDown(KeyCode.W)) SetState("Test");
     }
 
     public void ProgressStory()
@@ -69,7 +72,7 @@ public class GameChattingController : MonoBehaviour
         _currentState = ChatState.Chatting;
     }
 
-    public bool ChangeState(string stateName)
+    public bool SetState(string stateName)
     {
         string data = "";
         if (!GetState(stateName, out data))
@@ -79,8 +82,22 @@ public class GameChattingController : MonoBehaviour
         }
 
         _currentStory = new Story(data);
-        
+        UpdateEvent();
+
         return true;
+    }
+
+    private void UpdateEvent()
+    {
+        ChatEventList list = new ChatEventList();
+        foreach (KeyValuePair<string, EventKey> pair in list.ChatEventKey)
+        {
+            string name = pair.Key;
+            EventKey key = pair.Value;
+
+            // Debug.Log($"{name} -> {key}");
+            _currentStory.BindExternalFunction(name, () => EventDispatcher.Instance.PostEvent(key));
+        }
     }
 
     private bool GetState(string stateName, out string data)

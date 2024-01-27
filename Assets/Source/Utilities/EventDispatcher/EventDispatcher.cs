@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class EventDispatcher : GenericSingleton<EventDispatcher>
 {
-    private Dictionary<string, Action<object>> _listeners = new Dictionary<string, Action<object>>();
+    private Dictionary<EventKey, Action<object>> _listeners = new Dictionary<EventKey, Action<object>>();
 
     /// <summary>
     /// Register to listen for eventKey
     /// </summary>
     /// <param name="eventKey">EventKey that object want to listen</param>
     /// <param name="callback">Callback will be invoked when this eventKey be raised</para	m>
-    public void RegisterListener(string eventKey, Action<object> callback)
+    public void RegisterListener(EventKey eventKey, Action<object> callback)
     {
         if (callback == null)
         {
             Debug.Log($"EventDispatcher: RegisterListener: event {eventKey}: callback = null !!");
             return;
         }
-        if (eventKey == string.Empty)
+        if (eventKey == EventKey.None)
         {
             Debug.Log($"EventDispatcher: RegisterListener: event = None !!");
             return;
@@ -39,8 +39,9 @@ public class EventDispatcher : GenericSingleton<EventDispatcher>
     /// Posts the event. This will notify all listener that register for this event
     /// </summary>
     /// <param name="eventKey">EventKey.</param>
+    /// <param name="sender">Sender, in some case, the Listener will need to know who send this message.</param>
     /// <param name="param">Parameter. Can be anything (struct, class ...), Listener will make a cast to get the data</param>
-    public void PostEvent(string eventKey, object param = null)
+    public void PostEvent(EventKey eventKey, object param = null)
     {
         if (!_listeners.ContainsKey(eventKey))
         {
@@ -65,7 +66,7 @@ public class EventDispatcher : GenericSingleton<EventDispatcher>
     /// </summary>
     /// <param name="eventKey">EventKey.</param>
     /// <param name="callback">Callback.</param>
-    public void RemoveListener(string eventKey, Action<object> callback)
+    public void RemoveListener(EventKey eventKey, Action<object> callback)
     {
         if (_listeners.ContainsKey(eventKey))
         {
