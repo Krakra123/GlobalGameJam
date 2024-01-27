@@ -17,17 +17,19 @@ public class MessageManager : MonoBehaviour
     private int _maxMessages;
 
     [SerializeField]
-    private Vector2 _chatOrigin;
-    [SerializeField]
-    private float _chatWidth;
-    [SerializeField]
     private float _messageSpacing;
+
+    private Vector2 _chatOrigin;
+    private float _chatWidth;
 
     private LinkedList<Message> _messageList = new();
 
     private void Start()
     {
         _messagePool.SetPrototype(_otherMessagePrototype); //!
+
+        _chatOrigin = transform.position;
+        _chatWidth = GetComponent<RectTransform>().rect.width;
     }
 
     public void LoadMessage(string text, bool isOwnMessage)

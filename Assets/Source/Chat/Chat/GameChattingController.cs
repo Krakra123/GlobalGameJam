@@ -26,27 +26,25 @@ public class GameChattingController : MonoBehaviour
 
     private void Start()
     {
-        
+        SetState("Test");
     }
 
     private void Update()
     {
         if (_currentState == ChatState.Chatting && Input.GetMouseButtonDown(0))
         {
-            ProgressStory();
+            ProgressStory(false);
         }
-
-        if (Input.GetKeyDown(KeyCode.W)) SetState("Test");
     }
 
-    public void ProgressStory()
+    public void ProgressStory(bool isOwn)
     {
         if (_currentState == ChatState.Chatting)
         {
             if (_currentStory.canContinue)
             {
                 string text = _currentStory.Continue(); 
-                _messageManager.LoadMessage(text, false);
+                _messageManager.LoadMessage(text, isOwn);
             }
             else if (_currentStory.currentChoices.Count > 0)
             {
@@ -65,11 +63,12 @@ public class GameChattingController : MonoBehaviour
 
     public void SelectResponse(int index)
     {
-        _messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
+        //_messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
         _currentStory.ChooseChoiceIndex(index);
 
         _responseManager.HideResponses();
         _currentState = ChatState.Chatting;
+        ProgressStory(true);
     }
 
     public bool SetState(string stateName)
@@ -82,7 +81,7 @@ public class GameChattingController : MonoBehaviour
         }
 
         _currentStory = new Story(data);
-        UpdateEvent();
+        // UpdateEvent();
 
         return true;
     }
