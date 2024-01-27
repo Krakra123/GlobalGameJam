@@ -1,6 +1,7 @@
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameChattingController : MonoBehaviour
 {
@@ -25,18 +26,25 @@ public class GameChattingController : MonoBehaviour
 
     private void Start()
     {
-        ChangeState("Test");
+        SetState("Test");
     }
 
     private void Update()
     {
-        Debug.Log(_currentState);
-        if (_currentState == ChatState.Chatting && Input.GetKeyDown(KeyCode.E))
+        if (_currentState == ChatState.Chatting && Input.GetMouseButtonDown(0))
+        {
+            ProgressStory(false);
+        }
+    }
+
+    public void ProgressStory(bool isOwn)
+    {
+        if (_currentState == ChatState.Chatting)
         {
             if (_currentStory.canContinue)
             {
                 string text = _currentStory.Continue(); 
-                _messageManager.LoadMessage(text, false);
+                _messageManager.LoadMessage(text, isOwn);
             }
             else if (_currentStory.currentChoices.Count > 0)
             {
@@ -55,15 +63,15 @@ public class GameChattingController : MonoBehaviour
 
     public void SelectResponse(int index)
     {
-        _messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
-
+        //_messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
         _currentStory.ChooseChoiceIndex(index);
 
         _responseManager.HideResponses();
         _currentState = ChatState.Chatting;
+        ProgressStory(true);
     }
 
-    public bool ChangeState(string stateName)
+    public bool SetState(string stateName)
     {
         string data = "";
         if (!GetState(stateName, out data))
@@ -73,8 +81,22 @@ public class GameChattingController : MonoBehaviour
         }
 
         _currentStory = new Story(data);
-        
+        // UpdateEvent();
+
         return true;
+    }
+
+    private void UpdateEvent()
+    {
+        ChatEventList list = new ChatEventList();
+        foreach (KeyValuePair<string, EventKey> pair in list.ChatEventKey)
+        {
+            string name = pair.Key;
+            EventKey key = pair.Value;
+
+            // Debug.Log($"{name} -> {key}");
+            _currentStory.BindExternalFunction(name, () => EventDispatcher.Instance.PostEvent(key));
+        }
     }
 
     private bool GetState(string stateName, out string data)
