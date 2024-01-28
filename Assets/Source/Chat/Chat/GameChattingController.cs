@@ -12,7 +12,7 @@ public class GameChattingController : MonoBehaviour
     }
 
     [SerializeField]
-    private ChattingContainer _stateContainer;
+    private ChattingContainer _chatContainer;
 
     [SerializeField]
     private MessageManager _messageManager;
@@ -26,25 +26,37 @@ public class GameChattingController : MonoBehaviour
 
     private void Start()
     {
-        SetState("Test");
+        SetChat("Test");
     }
 
     private void Update()
     {
         if (_currentState == ChatState.Chatting && Input.GetMouseButtonDown(0))
         {
-            ProgressStory(false);
+            ProgressChat(false);
         }
     }
 
-    public void ProgressStory(bool isOwn)
+    public void ProgressChat(bool isOwn)
     {
         if (_currentState == ChatState.Chatting)
         {
             if (_currentStory.canContinue)
             {
                 string text = _currentStory.Continue(); 
+
+                _messageManager.RemovePendingMessage();
+
                 _messageManager.LoadMessage(text, isOwn);
+
+                if (_currentStory.canContinue) 
+                {
+                    _messageManager.CreatePendingMessage(isOwn);
+                }
+                else 
+                {
+                    ProgressChat(isOwn);
+                }
             }
             else if (_currentStory.currentChoices.Count > 0)
             {
@@ -55,7 +67,7 @@ public class GameChattingController : MonoBehaviour
                     var choice = _currentStory.currentChoices[i];
                     Button button = _responseManager.LoadResponse(choice.text);
 
-                    // button.onClick.AddListener(() => SelectResponse(i));
+                    // button.onClick.AddListener(() => SelectResponse(i)); //!
                 }
             }
         }
@@ -63,25 +75,24 @@ public class GameChattingController : MonoBehaviour
 
     public void SelectResponse(int index)
     {
-        //_messageManager.LoadMessage(_currentStory.currentChoices[index].text, true);
         _currentStory.ChooseChoiceIndex(index);
 
         _responseManager.HideResponses();
         _currentState = ChatState.Chatting;
-        ProgressStory(true);
+        ProgressChat(true);
     }
 
-    public bool SetState(string stateName)
+    public bool SetChat(string chatName)
     {
         string data = "";
-        if (!GetState(stateName, out data))
+        if (!GetChat(chatName, out data))
         {
-            Debug.Log($"State data not found");
+            Debug.Log($"Chat data not found");
             return false;
         }
 
         _currentStory = new Story(data);
-        // UpdateEvent();
+        UpdateEvent();
 
         return true;
     }
@@ -99,11 +110,11 @@ public class GameChattingController : MonoBehaviour
         }
     }
 
-    private bool GetState(string stateName, out string data)
+    private bool GetChat(string chatName, out string data)
     {
-        foreach (TextAsset stateData in _stateContainer.Data)
+        foreach (TextAsset stateData in _chatContainer.Data)
         {
-            if (stateData.name == stateName)
+            if (stateData.name == chatName)
             {
                 data = stateData.text;
                 return true;

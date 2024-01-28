@@ -3,33 +3,41 @@ using TMPro;
 
 public class Message : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI _textGUI;
+    private MessageManager _manager;
 
     [SerializeField]
-    private float _boxWidth;
-    [SerializeField]
-    private float _lineSpacing;
-    [SerializeField]
-    private float _boxBoundOffset;
-    [SerializeField]
-    private float _textHorizontalOffset;
+    private TextMeshProUGUI _textGUI;
 
     private string _text;
 
     [HideInInspector]
     public float SpacingHeight;
 
-    public void SetUp(string text, Vector2 position)
+    public void SetUp(MessageManager manager, string text, Vector2 position)
     {
-        _textGUI.GetComponent<RectTransform>().sizeDelta = new Vector2(_boxWidth - _textHorizontalOffset, 0f);
+        _manager = manager;
+
         _text = text;
+        _textGUI.GetComponent<RectTransform>().sizeDelta = new Vector2(_manager.MessageMaxWidth - _manager.MessageTextHorizontalOffset - 10f, 0f);
         _textGUI.text = _text;
 
         Canvas.ForceUpdateCanvases();
+
         int lineNum = _textGUI.textInfo.lineCount;
-        GetComponent<RectTransform>().sizeDelta = new Vector2(_boxWidth, lineNum * _lineSpacing + _boxBoundOffset * 2f);
-        SpacingHeight = lineNum * _lineSpacing + _boxBoundOffset * 2f;
+        if (lineNum > 1)
+        {
+            GetComponent<RectTransform>().sizeDelta = new Vector2(manager.MessageMaxWidth, lineNum * _manager.MessageLineSpacing + _manager.MessageBoundOffset * 2f);
+        }
+        else 
+        {
+            GetComponent<RectTransform>().sizeDelta = new Vector2(
+                // manager.MessageMaxWidth,
+                _textGUI.textBounds.size.x + _manager.MessageTextHorizontalOffset + 10f, 
+                lineNum * _manager.MessageLineSpacing + _manager.MessageBoundOffset * 2f
+                );
+        }
+
+        SpacingHeight = lineNum * _manager.MessageLineSpacing + _manager.MessageBoundOffset * 2f;
 
         transform.position = position + Vector2.down * SpacingHeight;
     }

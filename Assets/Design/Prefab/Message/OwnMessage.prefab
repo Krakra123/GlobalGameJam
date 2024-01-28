@@ -99,7 +99,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -224,8 +224,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textGUI: {fileID: 2269450621740675723}
-  _boxWidth: 260
-  _lineSpacing: 22
-  _boxBoundOffset: 7
-  _textHorizontalOffset: 15
   SpacingHeight: 0
